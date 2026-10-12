@@ -552,3 +552,166 @@ Il gradino metallico costituisce l'elemento base del sistema scale.
 > 3. Freccia elastica in punta allo SLE ($Q = 2.0\text{ kN} = 2000\text{ N}$):
 >    $$f_{max} = \frac{2000 \cdot 1100^3}{3 \cdot 210000 \cdot 1.12 \cdot 10^6} = \frac{2.662 \cdot 10^{12}}{7.056 \cdot 10^{11}} = 3.77\text{ mm}$$
 >    Limite di comfort: $f_{lim} = \frac{L}{300} = \frac{1100}{300} = 3.67\text{ mm} \approx 3.77\text{ mm} \implies$ **Rigidezza adeguata.**
+
+---
+
+## MODULO 7: Dinamica delle Strutture e Definizione dell'Azione Sismica (NTC 2018)
+
+### 7.1. Fondamenti di Dinamica delle Strutture (Oscillatore Semplice SDOF)
+L'oscillatore semplice a un grado di libertà (SDOF - *Single Degree of Freedom*) è il modello teorico di base per studiare la risposta sismica degli edifici:
+- **Equazione Differenziale del Moto**:
+  $$m \ddot{x}(t) + c \dot{x}(t) + k x(t) = -m \ddot{x}_g(t)$$
+  dove:
+  - $m$: massa concentrata del piano [kg];
+  - $c$: coefficiente di smorzamento viscoso [N·s/m];
+  - $k$: rigidezza laterale delle colonne del telaio [N/m];
+  - $x(t)$: spostamento relativo della massa rispetto alla base [m];
+  - $\ddot{x}_g(t)$: accelerogramma del terreno impresso alla base [m/s$^2$].
+- **Parametri Caratteristici**:
+  - Pulsazione naturale propria: $\omega_n = \sqrt{\frac{k}{m}}\text{ [rad/s]}$;
+  - Periodo proprio fondamentale: $T = \frac{2\pi}{\omega_n} = 2\pi \sqrt{\frac{m}{k}}\text{ [s]}$;
+  - Frequenza propria: $f = \frac{1}{T} = \frac{\omega_n}{2\pi}\text{ [Hz]}$;
+  - Rapporto di smorzamento critico $\xi$:
+    $$\xi = \frac{c}{c_{cr}} = \frac{c}{2 m \omega_n} = \frac{c}{2 \sqrt{k m}}$$
+    Per le strutture civili ordinarie: $\xi \approx 0.05$ ($5\%$).
+- **Regimi di Oscillazione**:
+  1. *Libere non smorzate ($c=0, \ddot{x}_g=0$)*: moto armonico continuo con ampiezza costante $x(t) = x_0 \cos(\omega_n t) + \frac{\dot{x}_0}{\omega_n} \sin(\omega_n t)$.
+  2. *Libere smorzate ($\xi < 1$)*: oscillazione pseudo-armonica con decadimento esponenziale $e^{-\xi \omega_n t}$.
+  3. *Forzate armoniche ($F(t) = F_0 \sin(\Omega t)$)*: quando la frequenza dell'eccitante coincide con la frequenza propria ($\Omega \approx \omega_n$), si verifica il fenomeno della **risonanza**, con amplificazione massima dello spostamento limitata unicamente dallo smorzamento ($D_{max} = \frac{1}{2\xi} \approx 10$ per $\xi = 0.05$).
+
+---
+
+### 7.2. Lo Spettro di Risposta Elastico secondo NTC 2018 (§3.2.3.2)
+Lo spettro di risposta fornisce il massimo valore della risposta (in termini di accelerazione $S_e(T)$, velocità o spostamento $S_d(T)$) di un insieme di oscillatori semplici aventi diverso periodo $T$ e identico smorzamento ($\xi = 5\%$) sottoposti al medesimo evento sismico.
+- **Parametri Sismici di Base del Sito** (individuati da latitudine e longitudine nella griglia dell'Allegato B NTC):
+  - $a_g$: accelerazione orizzontale massima al suolo su terreno rigido pianeggiante (PGA);
+  - $F_0$: valore massimo del fattore di amplificazione dello spettro in accelerazione orizzontale (generalmente tra $2.3$ e $2.6$);
+  - $T_C^*$: periodo di inizio del tratto a velocità costante.
+- **Parametri di Modificazione Stratigrafica e Topografica**:
+  - Categorie di sottosuolo: **A** (roccia, $V_{s,30} > 800\text{ m/s}$), **B** (suoli molto densi, $360 < V_s \le 800$), **C** (suoli densi o mediamente compatti, $180 < V_s \le 360$), **D** (suoli sciolti, $V_s < 180$), **E** (strato alluvionale soffice $5\text{–}20\text{ m}$ sopra roccia).
+  - Categorie topografiche: **T1** (superficie pianeggiante, $S_T = 1.0$), **T2** (pendii con inclinazione $> 15^\circ$, $S_T = 1.2$), **T3** (rilievi montuosi con cresta stretta, $S_T = 1.2$), **T4** (rilievi isolati con pendenze $> 30^\circ$, $S_T = 1.4$).
+  - Coefficiente complessivo del suolo: $S = S_S \cdot S_T$.
+- **Periodi Caratteristici dello Spettro**:
+  $$T_B = \frac{T_C}{3}, \quad T_C = C_C \cdot T_C^*, \quad T_D = 4.0 \cdot \frac{a_g}{g} + 1.6$$
+- **Forma Spettrale in Accelerazione $S_e(T)$**:
+  - Tratto 1 ($0 \le T < T_B$): $S_e(T) = a_g \cdot S \cdot \eta \cdot F_0 \cdot \left[ \frac{T}{T_B} + \frac{1}{\eta F_0} \left(1 - \frac{T}{T_B}\right) \right]$
+  - Tratto 2 ($T_B \le T < T_C$, Plateau di massima accelerazione): $S_e(T) = a_g \cdot S \cdot \eta \cdot F_0$
+  - Tratto 3 ($T_C \le T < T_D$, Velocità costante): $S_e(T) = a_g \cdot S \cdot \eta \cdot F_0 \cdot \left(\frac{T_C}{T}\right)$
+  - Tratto 4 ($T \ge T_D$, Spostamento costante): $S_e(T) = a_g \cdot S \cdot \eta \cdot F_0 \cdot \left(\frac{T_C \cdot T_D}{T^2}\right)$
+  *(con $\eta = \sqrt{10 / (5 + \xi)} = 1.0$ per $\xi = 5\%$)*.
+
+---
+
+## MODULO 8: Progettazione Sismica e Gerarchia delle Resistenze (MRF, CBF, EBF)
+
+### 8.1. Filosofia della Progettazione Antisismica Moderna
+1. **Comportamento Non Dissipativo (Elastico)**:
+   - Tutta la struttura (membrature e collegamenti) rimane in campo elastico.
+   - Fattore di comportamento basso: $q \le 1.50$.
+   - Richiede membrature molto grandi e costose.
+2. **Comportamento Dissipativo (Plastico)**:
+   - La struttura è concepita per dissipare gran parte dell'energia sismica in ingresso tramite la plasticizzazione ciclica di specifiche zone duttili prescelte (**zone dissipative**), mentre il resto della struttura (**zone non dissipative**) viene sovradimensionato per rimanere rigorosamente in campo elastico.
+   - Fattore di comportamento elevato: $q > 1.5$ (fino a $4\text{–}6.5$ per alta duttilità).
+   - Classi di duttilità: **CD"A" (Alta)** e **CD"B" (Media)**.
+
+### 8.2. Gerarchia delle Resistenze (*Capacity Design*)
+Il principio fondamentale evita meccanismi di collasso fragili imponendo due livelli gerarchici:
+1. **Gerarchia Globale**: selezione del meccanismo di collasso cinematico favorevole (meccanismo globale di piano a trave debole - colonna forte), impedendo la formazione di meccanismi a piano soffice.
+2. **Gerarchia Locale**: protezione di ciascun modo di collasso fragile (rottura a taglio, instabilità locale/globale, rottura delle connessioni) rispetto al corrispondente modo di collasso duttile (snervamento a trazione o flessione).
+
+---
+
+### 8.3. Edifici a Telaio Sismo-Resistenti (Moment Resisting Frames - MRF)
+- **Meccanismo di Collasso Desiderato**: cerniere plastiche concentrate alle estremità delle travi; colonne che rimangono elastiche (salvo alla base del piano terra).
+- **Criterio Colonna Forte - Trave Debole (NTC 2018 §7.5.4.1)**:
+  In ciascun nodo trave-colonna deve essere verificata la disuguaglianza:
+  $$\sum M_{c,pl,Rd} \ge 1.30 \cdot \sum M_{b,pl,Rd}$$
+  (somma dei momenti resistenti plastici delle colonne $\ge 1.3$ volte la somma dei momenti plastici delle travi concorrenti nel nodo).
+- **Sovraresistenza dei Collegamenti Trave-Colonna**:
+  I nodi rigidi flangiati o saldati devono avere una resistenza flessionale:
+  $$M_{j,Rd} \ge 1.10 \cdot \gamma_{ov} \cdot M_{b,pl,Rd} \quad (\gamma_{ov} = 1.25 \implies 1.1 \cdot 1.25 = 1.375 M_{pl})$$
+- **Verifica del Pannello d'Anima della Colonna a Taglio ($V_{wp}$)**:
+  Il taglio nodale derivante dalla trazione dell'ala superiore e compressione dell'ala inferiore della trave inflessa ($V_{wp,Ed} \approx \frac{M_{b,1} + M_{b,2}}{z} - V_{col}$) deve risultare inferiore alla resistenza a taglio del pannello $V_{wp,Rd}$. Se non verificato, occorre saldare piatti di raddoppio (*doubler plates*).
+- **Verifica di Deformabilità allo Stato Limite di Danno (SLD - Drift Interpiano)**:
+  Lo spostamento d'interpiano calcolato moltiplicando lo spostamento elastico per il fattore di comportamento $q$ ($d_r = d_e \cdot q$) deve rispettare:
+  $$d_r \le 0.005 \cdot h \quad \text{per tamponamenti rigidi fragili}$$
+  $$d_r \le 0.0075 \cdot h \quad \text{per tamponamenti duttili}$$
+  $$d_r \le 0.010 \cdot h \quad \text{per tamponamenti isolati o assenza di tamponature}$$
+
+---
+
+### 8.4. Edifici con Controventi Concentrici (CBF - Concentrically Braced Frames)
+Nei telai CBF la rigidezza e la resistenza alle azioni orizzontali sono affidate a triangolazioni reticolari le cui aste convergono in un punto comune:
+- **Tipologie di Configurazione**:
+  1. *Controventi a X (con diagonali tese attive)*: in ciascun ciclo di carico, la diagonale compressa si instabilizza immediatamente, mentre la diagonale tesa entra in trazione plastica ($N_{pl,Rd}$). La dissipazione avviene per snervamento della diagonale tesa.
+  2. *Controventi a V (o a V rovescia / Chevron)*: le due diagonali convergono in mezzeria della trave di piano.
+  3. **DIVIETO DEI CONTROVENTI A K**: la normativa NTC 2018 **VIETA TASSATIVAMENTE** i controventi a K in zona sismica poiché il vertice converge a metà altezza del pilastro, scaricando una forza sbilanciata orizzontale che provocherebbe una cerniera plastica a metà colonna con conseguente collasso di piano!
+- **LA FORZA SBILANCIATA VERTICALE NEI CONTROVENTI A V**:
+  Quando la diagonale compressa raggiunge il carico critico, la sua capacità portante crolla al valore residuo post-buckling ($N_{b,Rd}$). La diagonale tesa, invece, continua a incrementare la propria forza fino a plasticizzarsi a trazione ($N_{pl,Rd}$).
+  Poiché la componente verticale delle due diagonali non è più in equilibrio, sulla trave di mezzeria si scarica una **FORZA VERTICALE SBILANCIATA NON COMPENSATA**:
+  $$\Delta N_v = \left( N_{pl,Rd} - N_{b,Rd} \right) \cdot \sin\theta$$
+  *Regola di Progetto fondamentale*: la trave NON È un elemento dissipativo. La trave deve essere dimensionata in campo elastico per sostenere l'azione dei carichi gravitazionali sommata alla forza concentrata $\Delta N_v$ in mezzeria, garantendo che non si formino cerniere plastiche prima della completa plasticizzazione delle diagonali!
+- **Limitazione di Snellezza delle Diagonali**:
+  $$1.30 \le \bar{\lambda} \le 2.00$$
+  - $\bar{\lambda} \ge 1.30$: evita che la diagonale compressa abbia una capacità portante iniziale eccessiva, che scaricherebbe forze sbilanciate intollerabili sulle colonne prima di instabilizzarsi;
+  - $\bar{\lambda} \le 2.00$: previene un degrado ciclico precoce per fatica a bassi cicli.
+- **Condizione di Omogeneità di Piano**:
+  $$\frac{\Omega_{max}}{\Omega_{min}} \le 1.25 \quad \text{con } \Omega_i = \frac{N_{pl,Rd,i}}{N_{Ed,E,i}}$$
+  (garantisce una distribuzione uniforme della plasticizzazione lungo l'altezza dell'edificio).
+- **Dettaglio del Fazzoletto d'Attacco (Gusset Plate)**:
+  La diagonale deve essere interrotta ad una distanza libera pari a **$2 t_p$** (due volte lo spessore del piatto fazzoletto) dalla linea di piegatura teorica, per consentire la libera rotazione della cerniera plastica di instabilità fuori piano senza lacerare la saldatura di base.
+
+---
+
+### 8.5. Edifici con Controventi Eccentrici (EBF - Eccentrically Braced Frames)
+Nei telai EBF le diagonali non convergono nel medesimo nodo, ma lasciano deliberatamente un segmento isolato di trave chiamato **LINK (Elemento Fusibile Sismico)**, che costituisce l'unica zona dissipativa dell'intero sistema.
+
+> [!WARNING]
+> ### ⚠️ ERRORE GRAVE DEI VECCHI RIASSUNTI SUI LINK EBF CORRETTO
+> Nei vecchi riassunti informali compariva l'assurda formula con momento diviso momento ($M/M$) e le definizioni di link lunghi e intermedi erano invertite!
+> Ecco la **FORMULAZIONE CORRETTA NTC 2018 (§7.5.4.3) / Eurocodice 8**:
+
+#### 1. Classificazione Geometrica e Comportamentale del Link di Lunghezza $e$:
+- **LINK CORTI (Shear Links - Dominati dal Taglio)**:
+  $$e \le e_s = 1.60 \cdot \frac{M_{p,link}}{V_{p,link}} \quad \left( \text{oppure } e \le 0.8(1+\alpha)\frac{M_p}{V_p} \right)$$
+  - Il link si plasticizza per **scorrimento tangenziale uniforme nell'anima** prima che le ali raggiungano lo snervamento per flessione;
+  - Hanno una straordinaria capacità di dissipazione energetica e possono sopportare una **rotazione plastica d'interpiano massima**:
+    $$\gamma_p \le 0.08\text{ radianti (pari all'8% di distorsione angolare!)}$$
+- **LINK LUNGHI (Flexural Links - Dominati dalla Flessione)**:
+  $$e \ge e_l = 3.00 \cdot \frac{M_{p,link}}{V_{p,link}} \quad \left( \text{oppure } e \ge 1.5(1+\alpha)\frac{M_p}{V_p} \right)$$
+  - Il link si plasticizza per formazione di **due cerniere plastiche flessionali alle estremità**;
+  - Minore capacità di deformazione plastica a taglio: rotazione massima limitata a:
+    $$\gamma_p \le 0.02\text{ radianti}$$
+- **LINK INTERMEDI (Flesso-Taglio)**:
+  $$1.60 \cdot \frac{M_p}{V_p} < e < 3.00 \cdot \frac{M_p}{V_p}$$
+  - Comportamento accoppiato taglio-flessione con rotazione limite interpolata linearmente tra $0.08$ e $0.02\text{ rad}$:
+    $$\gamma_p = 0.08 - 0.06 \cdot \frac{e - 1.6 M_p/V_p}{1.4 M_p/V_p}\text{ rad}$$
+
+#### 2. Dettagli Costruttivi OBBLIGATORI del Link:
+1. **Irrigidimenti d'Anima Verticali Fitti (Web Stiffeners)**:
+   - Devono essere saldati su entrambi i lati dell'anima a passo ridotto ($a \le 30 t_w - d/5$ per link corti);
+   - Funzione vitale: impediscono l'instabilità per taglio ciclica dell'anima (*shear web buckling*), consentendo al materiale di raggiungere l'incrudimento plastico stabile senza cali isteretici.
+2. **Ritegni Torsionali ad Entrambe le Estremità del Link**:
+   - Sia l'ala superiore che l'ala inferiore devono essere bloccate contro la traslazione fuori piano per impedire lo sbandamento torsionale durante i grandi cicli plastici.
+
+#### 3. Gerarchia delle Resistenze negli EBF:
+Le membrature non dissipative (colonne, diagonali di controvento e la porzione di trave esterna al link) devono rimanere rigorosamente elastiche e sono dimensionate per resistere alle massime sollecitazioni erogate dal link incrudito:
+- Per link corti:
+  $$V_{design} = 1.50 \cdot \gamma_{ov} \cdot V_{p,link} \quad (\gamma_{ov} = 1.25 \implies V_{design} \approx 1.875 V_p)$$
+  (dove il fattore $1.50$ tiene conto del potente incrudimento plastico dell'acciaio a taglio).
+
+---
+
+> [!NOTE]
+> ### Esempio Numerico Breve (Classificazione e Calcolo Link EBF):
+> Link ricavato da profilo **HE 240 A** in acciaio S275 ($f_y = 275\text{ MPa}$, $f_{yd} = 261.9\text{ MPa}$). Dati profilo: $h = 230\text{ mm}$, $b = 240\text{ mm}$, $t_w = 7.5\text{ mm}$, $t_f = 12.0\text{ mm}$, $A_v \approx 2520\text{ mm}^2$, $W_{pl,y} = 744.6\text{ cm}^3 = 744600\text{ mm}^3$. Lunghezza del link $e = 750\text{ mm}$.
+> 1. Capacità a taglio plastico:
+>    $$V_p = \frac{A_v \cdot (f_y / \sqrt{3})}{\gamma_{M0}} = \frac{2520 \cdot 158.77}{1.05} = 381048\text{ N} = 381.0\text{ kN}$$
+> 2. Capacità a momento plastico:
+>    $$M_p = \frac{W_{pl,y} \cdot f_y}{\gamma_{M0}} = \frac{744600 \cdot 275}{1.05} = 195.0 \cdot 10^6\text{ Nmm} = 195.0\text{ kNm}$$
+> 3. Rapporto $M_p / V_p$:
+>    $$\frac{M_p}{V_p} = \frac{195.0\text{ kNm}}{381.0\text{ kN}} = 0.5118\text{ m} = 511.8\text{ mm}$$
+> 4. Lunghezza limite link corto:
+>    $$e_s = 1.60 \cdot 511.8\text{ mm} = 818.9\text{ mm}$$
+>    Poiché la lunghezza reale $e = 750\text{ mm} < 818.9\text{ mm} \implies$ **Il link è CORTO (Shear Link)**.
+> 5. Prestazione: dissipa a taglio puro, ammette la massima distorsione angolare $\gamma_p = 0.08\text{ rad}$ e richiede irrigidimenti d'anima verticali fitti saldati a passo $\le 200\text{ mm}$.
