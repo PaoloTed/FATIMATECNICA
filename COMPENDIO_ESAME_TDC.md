@@ -715,3 +715,131 @@ Le membrature non dissipative (colonne, diagonali di controvento e la porzione d
 >    $$e_s = 1.60 \cdot 511.8\text{ mm} = 818.9\text{ mm}$$
 >    Poiché la lunghezza reale $e = 750\text{ mm} < 818.9\text{ mm} \implies$ **Il link è CORTO (Shear Link)**.
 > 5. Prestazione: dissipa a taglio puro, ammette la massima distorsione angolare $\gamma_p = 0.08\text{ rad}$ e richiede irrigidimenti d'anima verticali fitti saldati a passo $\le 200\text{ mm}$.
+
+---
+
+## MODULO 9: Impalcato nel Piano, Diaframmi Sismici e Pioli Connettori Nelson
+
+### 9.1. Ruolo Strutturale del Diaframma di Piano
+Nelle costruzioni soggette a forze sismiche, l'impalcato (solaio) non svolge soltanto il compito gravitazionale di sorreggere i carichi verticali, ma funge da **diaframma orizzontale rigido**:
+1. **Ripartizione delle Forze Orizzontali**: raccoglie le forze d'inerzia generate dalle masse distribuite di piano ($F_i = m_i \cdot a_i$) e le ridistribuisce ai sistemi verticali sismo-resistenti (telai a momento e controventi) proporzionalmente alla loro rigidezza laterale traslazionale e torsionale.
+2. **Ipotesi di Diaframma Infinitamente Rigido nel Proprio Piano**:
+   - Comportamento cinematico a corpo rigido 2D: l'impalcato ha solo **3 gradi di libertà per piano** (due traslazioni nel piano $u_x, u_y$ e una rotazione attorno all'asse verticale $\theta_z$);
+   - Affinché tale ipotesi sia valida secondo NTC 2018 (§7.2.6), il solaio deve avere:
+     - Una soletta collaborante in calcestruzzo armato gettata in opera di spessore minimo $t \ge 40\text{–}50\text{ mm}$;
+     - Rete elettrosaldata di armatura continua (almeno $\Phi 6/200 \times 200\text{ mm}$ o $\Phi 8/200 \times 200\text{ mm}$) adeguatamente ancorata ai cordoli perimetrali;
+     - Un adeguato sistema di connessione a taglio tra travi metalliche e soletta (pioli connettori a taglio).
+
+---
+
+### 9.2. Pioli Connettori a Taglio Tipo Nelson (Studs)
+Nelle strutture miste acciaio-calcestruzzo con lamiera grecata, i connettori cilindrici a piolo con testa tipo Nelson trasferiscono lo scorrimento longitudinale all'interfaccia acciaio-calcestruzzo.
+- **Resistenza a Taglio di Calcolo del Singolo Piolo $P_{Rd}$ (Eurocodice 4 / NTC 2018)**:
+  La resistenza di calcolo è il minimo tra la rottura per taglio dell'acciaio del piolo e lo schiacciamento del calcestruzzo circostante:
+  $$P_{Rd} = \min \left( P_{Rd,1} = \frac{0.80 \cdot f_u \cdot \frac{\pi d^2}{4}}{\gamma_V} \; ; \; P_{Rd,2} = \frac{0.29 \cdot \alpha \cdot d^2 \cdot \sqrt{f_{ck} \cdot E_{cm}}}{\gamma_V} \right)$$
+  dove:
+  - $d$: diametro del gambo del piolo (tipicamente $16\text{ mm}$ o $19\text{ mm}$);
+  - $f_u$: tensione di rottura dell'acciaio del piolo ($\ge 450\text{ MPa}$, solitamente $500\text{ MPa}$);
+  - $\gamma_V = 1.25$: coefficiente parziale di sicurezza del connettore;
+  - $\alpha = 1.0$ se l'altezza del piolo $h_{sc} / d \ge 4$;
+  - $f_{ck}, E_{cm}$: parametri elastici del calcestruzzo della soletta.
+- **Coefficiente Riduttivo per Lamiere Grecate con Nervature Trasversali $k_t$**:
+  Se i pioli sono saldati attraverso una lamiera grecata con nervature ortogonali alla trave:
+  $$P_{Rd,ridotto} = k_t \cdot P_{Rd} \quad \text{con } k_t = \frac{0.70}{\sqrt{N_r}} \frac{b_0}{h_p} \left( \frac{h_{sc}}{h_p} - 1 \right) \le 1.00$$
+  ($N_r$: numero di pioli per nervatura; $b_0$: larghezza media nervatura; $h_p$: altezza greca).
+
+---
+
+### 9.3. Funzionamento Statico del Diaframma: Correnti e Collettori
+Il diaframma di piano può essere schematizzato come una **trave a parete piena orizzontale a mensola o su più appoggi**:
+1. **Correnti Tesi e Compressi (Chords / Cordoli di Piano)**:
+   - Posizionati lungo i bordi perimetrali dell'impalcato ortogonali alla direzione del sisma;
+   - Assorbono la coppia interna del momento flettente d'impalcato nel piano:
+     $$T_{cordolo} = C_{cordolo} = \frac{M_{piano}}{B_{edificio}}$$
+   - Sono costituiti dalle travi perimetrali d'acciaio verificate a sforzo assiale o da armature aggiuntive collocate nei cordoli di getto della soletta.
+2. **Travi-Collettore (Collectors / Struts and Ties)**:
+   - Travi d'impalcato allineate direttamente con le linee dei controventi sismo-resistenti verticali;
+   - Compito essenziale: raccolgono il flusso di taglio diffuso sull'ampia superficie dell'impalcato e lo "convogliano" come forza assiale concentrata direttamente alle testate dei controventi (o alle pareti sismiche). Devono essere verificate a forte sforzo assiale di trazione e compressione sommato ai carichi gravitazionali.
+
+---
+
+### 9.4. Criteri di Regolarità Strutturale secondo NTC 2018 (§7.2)
+Per garantire una risposta sismica prevedibile ed evitare amplificazioni dinamiche torsionali:
+- **Regolarità in Pianta**:
+  1. *Simmetria*: configurazione geometrica approssimativamente simmetrica rispetto a due direzioni ortogonali;
+  2. *Compattezza e Convessità*: forma in pianta compatta (rettangolare o poligonale regolare); eventuali rientranze non devono superare il $25\%$ della dimensione totale;
+  3. *Rapporto tra i lati*: $L_{max} / L_{min} < 4.0$;
+  4. *Rigidezza di piano*: impalcato con soletta continua indeformabile;
+  5. *Eccentricità accidentale di norma*: il centro di massa di ciascun piano deve essere traslato di un'eccentricità accidentale pari a **$\pm 5\%$ della dimensione dell'edificio** ($e_{ax} = \pm 0.05 L_x$, $e_{ay} = \pm 0.05 L_y$) per coprire le incertezze sulla distribuzione reale dei carichi e la rotazione torsionale del terreno.
+- **Regolarità in Altezza**:
+  1. Tutti i sistemi sismo-resistenti (colonne, controventi) devono proseguire senza interruzioni dalla fondazione alla sommità;
+  2. La massa e la rigidezza di piano devono ridursi gradualmente dal basso verso l'alto (variazione di rigidezza tra piani adiacenti entro il $30\%$, variazione di massa entro il $10\%$);
+  3. Assoluta assenza di piani a rigidezza bruscamente ridotta (*piano soffice*).
+
+---
+
+## MODULO 10: Vademecum Rapido d'Esame, Formulario Salvavita e 10 Domande Trabocchetto
+
+### 10.1. Formulario Compatto "Salvavita"
+
+| Meccanismo / Verifica | Formula di Progetto / Limite Normativo | Parametri e Unità di Misura |
+| :--- | :--- | :--- |
+| **Carico Neve** | $q_s = \mu_i \cdot q_{sk} \cdot c_e \cdot c_t$ | $[kN/m^2]$, $\mu_1 = 0.8$, $q_{sk}$ da zona e quota $a_s$ |
+| **Pressione Vento** | $p = q_b \cdot c_e(z) \cdot c_p \cdot c_d$ | $[kN/m^2]$, $q_b = 0.5 \rho v_b^2$, $c_{pe} = +0.8 / -0.4$ |
+| **SLU Flessione C.A.** | $M_{Rd} = A_s f_{yd} (d - 0.4 x)$ | $x = \frac{A_s f_{yd}}{0.8 b f_{cd}}$, $\xi = x/d \le 0.45$ (CD"B") |
+| **Taglio C.A. (Staffe)** | $V_{Rd,s} = 0.9 d \frac{A_{sw}}{s} f_{yd} \cot\theta$ | $1.0 \le \cot\theta \le 2.5$, $V_{Ed} \le \min(V_{Rd,s}; V_{Rd,c})$ |
+| **Passo Staffe C.A. Z. Critica** | $s \le \min(h/4 ; 175\text{ mm} ; 8 \Phi_L)$ | Passo **fitto**, estensione $L_{cr} = 2h$ |
+| **Passo Staffe C.A. Z. Corrente**| $s \le \min(0.75 d ; 250\text{ mm} ; 12 \Phi_L)$| Passo **rado** in campata |
+| **Torsione C.A. (Rausch)** | $\frac{A_{st}}{s} = \frac{T_{Ed}}{2 A_k f_{yd} \cot\theta}$ | $t_{ef} = 2c$, $\sum A_{sl} = \frac{T_{Ed} u_k \cot\theta}{2 A_k f_{yd}}$ |
+| **Asta Compressa Acciaio** | $N_{b,Rd} = \frac{\chi A f_y}{\gamma_{M1}}$ | $\bar{\lambda} = \frac{\lambda}{\lambda_1}$, curve instabilità $a, b, c, d$ |
+| **Momento Plastico Acciaio** | $M_{pl,Rd} = \frac{W_{pl} f_y}{\gamma_{M0}}$ | $[kNm]$, sezioni Classe 1 e 2 |
+| **Taglio Bullone** | $F_{v,Rd} = \frac{\alpha_v f_{ub} A}{\gamma_{M2}}$ | $\alpha_v = 0.6$ (8.8 su filetto), $\gamma_{M2} = 1.25$ |
+| **Rifollamento Bullone** | $F_{b,Rd} = \frac{k_1 \alpha_b f_u d t}{\gamma_{M2}}$ | $\alpha_b$ e $k_1$ da distanze $e_1, e_2, p_1, p_2$ |
+| **Saldatura Cordone Angolo** | $\sqrt{\sigma_\perp^2 + 3(\tau_\perp^2 + \tau_\parallel^2)} \le \frac{f_u}{\beta_w \gamma_{M2}}$ | $\sigma_\perp \le 0.9 \frac{f_u}{\gamma_{M2}}$, $\beta_w = 0.85$ (S275) |
+| **Gradino Scala Metallica** | $M_{Ed} = 1.50 \cdot (2\text{ kN}) \cdot L$ | Carico concentrato $2\text{ kN}$ in punta, $f \le L/300$ |
+| **Gerarchia Nodi MRF** | $\sum M_{c,pl,Rd} \ge 1.30 \sum M_{b,pl,Rd}$ | Colonna forte – Trave debole |
+| **Drift SLD (Spolamento)** | $d_r = d_e \cdot q \le 0.005 h$ | Tamponamenti rigidi fragili |
+| **CBF Chevron Sbilanciamento**| $\Delta N_v = (N_{pl,Rd} - N_{b,Rd}) \sin\theta$ | Forza verticale applicata in mezzeria trave |
+| **EBF Link Corto** | $e \le 1.60 \frac{M_p}{V_p} \implies \gamma_p \le 0.08\text{ rad}$ | Dissipa a taglio puro, irrigidimenti d'anima fitti |
+| **EBF Link Lungo** | $e \ge 3.00 \frac{M_p}{V_p} \implies \gamma_p \le 0.02\text{ rad}$ | Dissipa a flessione pura alle estremità |
+| **Connettore Piolo Nelson** | $P_{Rd} = \min(P_{Rd,1}; P_{Rd,2})$ | Taglio piolo vs Schiacciamento cls soletta |
+
+---
+
+### 10.2. Le 10 Domande Trabocchetto Più Frequenti del Prof. Landolfo con Risposta Esatta
+
+#### 1. Perché nei controventi eccentrici (EBF) la formula del link divide per il taglio e non per il momento?
+> **Risposta Esatta**: La lunghezza $e$ è una dimensione lineare $[m]$. Poiché il momento plastico ha dimensione $[kN \cdot m]$ e il taglio plastico $[kN]$, il rapporto $\frac{M_p}{V_p}$ restituisce una lunghezza espressa in metri. Dividere per il momento darebbe un numero puro, dimensionalmente privo di significato fisico.
+
+#### 2. Nei controventi a V (Chevron), perché la trave deve essere verificata in campo elastico e non può essere dissipativa?
+> **Risposta Esatta**: Perché quando la diagonale compressa si instabilizza post-buckling ($N_{b,Rd}$), la diagonale tesa continua a caricarsi fino a $N_{pl,Rd}$. La differenza genera una **forza sbilanciata verticale concentrata** $\Delta N_v = (N_{pl,Rd} - N_{b,Rd})\sin\theta$ sulla mezzeria della trave. Se la trave cedesse plasticamente, si formerebbe un cinematismo instabile di piano; la trave deve quindi rimanere elastica per garantire l'equilibrio del sistema.
+
+#### 3. Perché la normativa NTC 2018 vieta i controventi a K in zona sismica?
+> **Risposta Esatta**: Nei controventi a K le diagonali convergono a metà altezza del pilastro. La forza sbilanciata orizzontale scaricata dalla diagonale post-buckling agirebbe a metà colonna, innescando una cerniera plastica flessionale nel pilastro e conducendo rapidamente al collasso catastrofico di piano.
+
+#### 4. Dove si mettono le staffe fitte nel cemento armato e perché?
+> **Risposta Esatta**: Le staffe fitte ($s \le \min(h/4; 175\text{ mm}; 8 \Phi_L)$) si collocano obbligatoriamente nelle **zone critiche** (lunghezza $2h$ alle estremità di travi e pilastri), dove si sviluppano le cerniere plastiche sismiche, per confinare il nucleo di calcestruzzo compresso, impedire l'instabilità delle barre longitudinali compresse e assorbire il massimo taglio da gerarchia delle resistenze. In zona corrente il passo è più rado ($s \le \min(0.75d; 250\text{ mm}; 12 \Phi_L)$).
+
+#### 5. Che cos'è l'altezza di gola "a" in un cordone d'angolo e qual è la formula di verifica di Von Mises?
+> **Risposta Esatta**: L'altezza di gola $a$ è l'altezza del triangolo isoscele inscritto nella sezione trasversale del cordone di saldatura. La verifica direzionale impone: $\sqrt{\sigma_\perp^2 + 3(\tau_\perp^2 + \tau_\parallel^2)} \le \frac{f_u}{\beta_w \gamma_{M2}}$ e $\sigma_\perp \le 0.9 \frac{f_u}{\gamma_{M2}}$, dove $\beta_w$ vale $0.80$ per S235, $0.85$ per S275 e $0.90$ per S355.
+
+#### 6. Perché le scale metalliche devono essere disconnesse sismicamente dall'edificio?
+> **Risposta Esatta**: Perché la scala a soletta inclinata o cosciali triangolari possiede una rigidezza membranale nel proprio piano enormemente superiore a quella dei telai dell'edificio. Se collegata rigidamente, si comporterebbe come un controvento rigido non dimensionato per il sisma, attirando quote sproporzionate di taglio sismico e generando violente torsioni d'impalcato. Si adotta quindi lo schema a scala sospesa con tiranti o su montanti autonomi con giunto sismico.
+
+#### 7. Per quale carico concentrato va verificato il gradino a sbalzo metallico?
+> **Risposta Esatta**: Oltre al carico distribuito da folla ($4\text{ kN/m}^2$), la norma NTC 2018 impone la verifica per un **carico concentrato isolato di $2.00\text{ kN}$** applicato sul bordo libero più sfavorevole del gradino (impronta $50 \times 50\text{ mm}$), controllando sia la flessione e torsione allo SLU che la deformabilità elastica allo SLE ($f \le L/300$) per evitare sgradevoli vibrazioni sotto il passo dell'utente.
+
+#### 8. Quali sono i tre modi di collasso del modello a T-stub nei collegamenti bullonati?
+> **Risposta Esatta**: 
+> - **Modo 1**: plasticizzazione completa della piastra di flangia con formazione di 4 cerniere plastiche (meccanismo duttile, nessun sovraccarico sui bulloni);
+> - **Modo 2**: parziale plasticizzazione della flangia (2 cerniere) con comparsa delle forze di leva (*prying forces*) e successiva rottura a trazione dei bulloni;
+> - **Modo 3**: rottura a trazione pura dei soli bulloni senza deformazione plastica della flangia (meccanismo fragile da evitare).
+
+#### 9. Che cosa sono e a cosa servono le travi-collettore (collectors / struts-ties) nei diaframmi di piano?
+> **Risposta Esatta**: Sono le travi d'impalcato allineate con le pareti sismiche o i controventi. Raccolgono il flusso continuo di taglio distribuito che scorre lungo la soletta collaborante rigida e lo trasferiscono come sforzo assiale diretto alle testate dei controventi verticali, evitando concentrazioni di fessurazione nel solaio.
+
+#### 10. Perché nelle travi alveolari compaiono i momenti secondari di Vierendeel?
+> **Risposta Esatta**: Perché in corrispondenza del foro dell'anima viene a mancare la continuità della parete per assorbire il taglio $V_{Ed}$. Il taglio è costretto a dividersi tra i due correnti a T superiore e inferiore ($V/2$ ciascuno), e moltiplicandosi per il semibraccio del foro ($d_0/2$) genera un momento flettente locale secondario che induce flessione e taglio parassiti nei correnti, da combinare con lo sforzo assiale globale.
+
+---
+*Fine del Compendio Definitivo d'Esame — Laboratorio di Tecnica delle Costruzioni.*
